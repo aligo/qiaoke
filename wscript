@@ -87,11 +87,15 @@ def configure(conf):
 def build(bld):
 
   bld.program(
-    packages      = ['vte', 'config', 'posix'],
+    packages      = ['vte', 'config', 'posix', 'tomboykeybinder'],
     vapi_dirs     = 'vapi',
     target        = APPNAME,
     uselib        = ['GLIB', 'GOBJECT', 'GTHREAD', 'GTK', 'VTE'],
     source        = ['src/terminal.vala',
                      'src/terminalbox.vala',
                      'src/main.vala',
-                     'src/main-window.vala'])
+                     'src/main-window.vala',
+                     'deps/eggaccelerators.c',
+                     'deps/tomboykeybinder.c'
+                     ],
+    includes      = ['deps/'])
