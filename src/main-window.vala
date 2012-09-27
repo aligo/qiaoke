@@ -20,8 +20,9 @@ public class Qiaoke.MainWindow : Gtk.Window {
       var window_rect = this.get_final_window_rect();
       this.move(window_rect.x, window_rect.y);
       this.resize(window_rect.width, window_rect.height);
-      this.set_terminal_background();
       this.show();
+      this.focus(0);
+      this.set_terminal_background();
       this.set_terminal_focus();
       this.is_toggled = true;
     }
@@ -42,13 +43,13 @@ public class Qiaoke.MainWindow : Gtk.Window {
     var screen  = this.get_screen();
     int monitor = screen.get_primary_monitor();
     // int monitor = 0;
-    int height  = 200;
+    int height  = 30;
 
     Gdk.Rectangle dest;
 
     screen.get_monitor_geometry(monitor, out dest);
 
-    dest.height = height;
+    dest.height = dest.height * height / 100;
 
     return dest;
   }
