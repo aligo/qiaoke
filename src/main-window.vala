@@ -6,6 +6,7 @@ public class Qiaoke.MainWindow : Gtk.Window {
   public MainWindow() {
     this.title = "Qiaoke!";
     this.set_decorated(false);
+    this.set_keep_above(true);
 
     this.add(this.qiaoke_box);
     this.destroy.connect(Gtk.main_quit);
@@ -19,6 +20,7 @@ public class Qiaoke.MainWindow : Gtk.Window {
       var window_rect = this.get_final_window_rect();
       this.move(window_rect.x, window_rect.y);
       this.resize(window_rect.width, window_rect.height);
+      this.set_terminal_background();
       this.show();
       this.set_terminal_focus();
       this.is_toggled = true;
@@ -27,6 +29,13 @@ public class Qiaoke.MainWindow : Gtk.Window {
 
   public void set_terminal_focus() {
     this.qiaoke_box.terminal.grab_focus();
+  }
+
+  public void set_terminal_background() {
+    int transparency = 15;
+    this.qiaoke_box.terminal.set_background_transparent(true);
+    this.qiaoke_box.terminal.set_background_saturation(transparency / 100.0);
+    this.qiaoke_box.terminal.set_opacity((100 - transparency) / 100 * 65535);
   }
 
   public Gdk.Rectangle get_final_window_rect() {
