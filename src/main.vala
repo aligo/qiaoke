@@ -1,12 +1,24 @@
-void main(string[] args) {
-  Gtk.init(ref args);
+private class Qiaoke.Appliction {
 
-  var window = new MainWindow();
-  window.display();
+  private static MainWindow window;
 
-  Gtk.main();
-}
+  private static void key_handler_func() {
+    toggle_window();
+  }
 
-public unowned string tr(string str) {
-  return str;
+  private static void toggle_window() {
+    window.toggle();
+  }
+
+  public static void main(string[] args) {
+    Gtk.init(ref args);
+
+    Tomboy.keybinder_init();
+    Tomboy.keybinder_bind("F5", key_handler_func, null); //temporary binding to F5
+    window = new MainWindow();
+    window.toggle();
+
+    Gtk.main();
+  }
+
 }
