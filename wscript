@@ -91,12 +91,14 @@ def build(bld):
     vapi_dirs     = 'vapi',
     target        = APPNAME,
     uselib        = ['GLIB', 'GOBJECT', 'GTHREAD', 'GTK', 'VTE'],
-    source        = ['src/terminal.vala',
-                     'src/terminalbox.vala',
-                     'src/main.vala',
-                     'src/main-window.vala',
-                     'src/colors.vala',
-                     'deps/eggaccelerators.c',
-                     'deps/tomboykeybinder.c'
+    source        = [
+                      'src/main.vala',
+                      'src/main-window.vala',
+                      'src/terminal.vala',
+                      'src/terminal-manager.vala',
+                      'src/terminal-box.vala',
+                      'src/colors.vala',
+                      'deps/eggaccelerators.c',
+                      'deps/tomboykeybinder.c'
                      ],
     includes      = ['deps/'])
