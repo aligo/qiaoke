@@ -62,7 +62,7 @@ public class Qiaoke.MainWindow : Gtk.Window {
     int transparency = 30;
     Gdk.Color bgcolor = {0, 0x0000, 0x0000, 0x0000};
     Gdk.Color fgcolor = {0, 0xffff, 0xffff, 0xffff};
-    this.qiaoke_box.terminal.set_colors(fgcolor, bgcolor, Qiaoke.Colors.xterm_256_palette);
+    this.qiaoke_box.terminal.set_colors(fgcolor, bgcolor, Qiaoke.Colors.tango_palette);
     // this.qiaoke_box.terminal.set_background_transparent(true);
     // this.qiaoke_box.terminal.set_background_saturation(transparency / 100.0);
     this.qiaoke_box.terminal.set_opacity((uint16)((100.0 - transparency) / 100.0 * 65535));
