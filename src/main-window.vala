@@ -1,10 +1,10 @@
 public class Qiaoke.MainWindow : Gtk.Window {
 
-  public bool is_toggled = false;
   public TerminalBox qiaoke_box = new TerminalBox();
 
   public MainWindow() {
     this.title = "Qiaoke!";
+    this.set_resizable(false);
     this.set_decorated(false);
     this.set_keep_above(true);
     this.set_colormap(this.get_screen().get_rgba_colormap());
@@ -17,12 +17,10 @@ public class Qiaoke.MainWindow : Gtk.Window {
   }
 
   public void toggle() {
-    if ( this.is_toggled ) {
+    if ( this.get_visible() ) {
       this.hide();
-      this.is_toggled = false;
     } else {
       this.show();
-      this.is_toggled = true;
     }
   }
 
@@ -36,9 +34,8 @@ public class Qiaoke.MainWindow : Gtk.Window {
   }
 
   private bool expose_cb(Gdk.EventExpose event) {
-    this.focus(0);
     this.set_terminal_focus();
-    return true;
+    return false;
   }
 
   private void set_position_size() {
