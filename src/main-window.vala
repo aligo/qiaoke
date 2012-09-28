@@ -7,6 +7,7 @@ public class Qiaoke.MainWindow : Gtk.Window {
     this.title = "Qiaoke!";
     this.set_decorated(false);
     this.set_keep_above(true);
+    this.set_colormap(this.get_screen().get_rgba_colormap());
     this.set_terminal_background();
 
     this.add(this.qiaoke_box);
@@ -30,6 +31,7 @@ public class Qiaoke.MainWindow : Gtk.Window {
   }
 
   private void screen_changed_cb(Gtk.Widget widget, Gdk.Screen old_screen) {
+    this.set_colormap(this.get_screen().get_rgba_colormap());
     this.set_position_size();
   }
 
@@ -57,10 +59,13 @@ public class Qiaoke.MainWindow : Gtk.Window {
   }
 
   private void set_terminal_background() {
-    int transparency = 15;
-    this.qiaoke_box.terminal.set_background_transparent(true);
-    this.qiaoke_box.terminal.set_background_saturation(transparency / 100.0);
-    this.qiaoke_box.terminal.set_opacity((100 - transparency) / 100 * 65535);
+    int transparency = 30;
+    Gdk.Color color;
+    Gdk.Color.parse("#000000000000", out color);
+    this.qiaoke_box.terminal.set_background_tint_color(color);
+    // this.qiaoke_box.terminal.set_background_transparent(true);
+    // this.qiaoke_box.terminal.set_background_saturation(transparency / 100.0);
+    this.qiaoke_box.terminal.set_opacity((uint16)((100.0 - transparency) / 100.0 * 65535));
   }
 
 }

@@ -14,7 +14,7 @@ private class Qiaoke.Appliction {
     Gtk.init(ref args);
 
     Tomboy.keybinder_init();
-    Tomboy.keybinder_bind("F5", key_handler_func, null); //temporary binding to F5
+    Tomboy.keybinder_bind("F6", key_handler_func, null); //temporary binding to F6
     window = new MainWindow();
     window.toggle();
 
