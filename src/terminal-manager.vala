@@ -9,7 +9,7 @@ public class Qiaoke.TerminalManager : Gtk.Notebook {
   }
 
   public void new_tab() {
-    TerminalBox qiaoke_box = new TerminalBox("Terminal " + this.get_n_pages().to_string());
+    TerminalBox qiaoke_box = new TerminalBox(this, "Terminal " + this.get_n_pages().to_string());
 
     this.append_page(qiaoke_box, qiaoke_box.label_box);
     this.set_current_page(this.get_n_pages() - 1);

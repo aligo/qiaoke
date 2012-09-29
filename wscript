@@ -97,6 +97,7 @@ def build(bld):
                       'src/terminal.vala',
                       'src/terminal-manager.vala',
                       'src/terminal-box.vala',
+                      'src/terminal-killer.vala',
                       'src/colors.vala',
                       'deps/eggaccelerators.c',
                       'deps/tomboykeybinder.c'

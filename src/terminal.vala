@@ -1,6 +1,7 @@
 public class Qiaoke.Terminal : Vte.Terminal {
-
-  private GLib.Pid? child_pid = null;
+  
+  private TerminalKiller killer;
+  private GLib.Pid pid;
   private string shell = Vte.get_user_shell();
 
   public Terminal() {
@@ -12,8 +13,14 @@ public class Qiaoke.Terminal : Vte.Terminal {
     this.grab_focus();
     var args = new string[0];
     GLib.Shell.parse_argv(this.shell, out args);
-    this.fork_command_full(Vte.PtyFlags.DEFAULT, GLib.Environment.get_home_dir(), args, null, GLib.SpawnFlags.SEARCH_PATH, null, out this.child_pid);
+    this.fork_command_full(Vte.PtyFlags.DEFAULT, GLib.Environment.get_home_dir(), args, null, GLib.SpawnFlags.SEARCH_PATH, null, out this.pid);
+    this.killer = new TerminalKiller(this.pid);
     this.show();
+  }
+
+  public void kill() {
+    unowned Thread<void*> thread_killer = GLib.Thread.create<void*> (this.killer.thread_func, true);
+    thread_killer.join();
   }
 
 }

@@ -1,13 +1,17 @@
 public class Qiaoke.TerminalBox : Gtk.HBox {
 
-  public Qiaoke.Terminal terminal     = new Qiaoke.Terminal();
+
+  public TerminalManager manager;
+  public Terminal        terminal     = new Qiaoke.Terminal();
   public Gtk.HBox        label_box    = new Gtk.HBox(false, 0);
   public Gtk.Label       label        = new Gtk.Label("");
   public Gtk.Button      close_btn    = new Gtk.Button();
 
   private Gtk.VScrollbar scroll;
 
-  public TerminalBox(string label) {
+  public TerminalBox(TerminalManager manager, string label) {
+    this.manager = manager;
+
     this.scroll = new Gtk.VScrollbar(terminal.get_adjustment());
     this.scroll.set_no_show_all(true);
     this.scroll.show();
@@ -26,6 +30,11 @@ public class Qiaoke.TerminalBox : Gtk.HBox {
     this.label_box.pack_start(this.close_btn, false, false);
 
     this.label_box.show_all();
+  }
+
+  public void close() {
+    this.terminal.kill();
+    this.manager.remove_page(this.manager.page_num(this));
   }
 
   private void init_close_button() {
@@ -49,7 +58,7 @@ public class Qiaoke.TerminalBox : Gtk.HBox {
     Gtk.icon_size_lookup_for_settings(this.close_btn.get_settings(), Gtk.IconSize.MENU, out w, out h);
     this.close_btn.set_size_request(w + 2, h + 2);
 
-
+    this.close_btn.clicked.connect(this.close);
   }
 
 }
