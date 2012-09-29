@@ -12,6 +12,8 @@ public class Qiaoke.TerminalBox : Gtk.HBox {
   public TerminalBox(TerminalManager manager, string label) {
     this.manager = manager;
 
+    this.terminal.set_background();
+
     this.scroll = new Gtk.VScrollbar(terminal.get_adjustment());
     this.scroll.set_no_show_all(true);
     this.scroll.show();
@@ -33,22 +35,16 @@ public class Qiaoke.TerminalBox : Gtk.HBox {
   }
 
   public void close() {
+    int page_pos = this.manager.page_num(this);
+    this.manager.set_current_page(page_pos - 1);
     this.terminal.kill();
-    this.manager.remove_page(this.manager.page_num(this));
+    this.manager.remove_page(page_pos);
   }
 
   private void init_close_button() {
-    this.close_btn.set_name("qiaoke-tab-close-button");
 
-    Gtk.rc_parse_string("style \"qiaoke-tab-close-button-style\"\n" +
-                       "{\n" +
-                          "GtkButton::inner-border = {0,0,0,0}\n" +
-                          "GtkWidget::focus-padding = 0\n" +
-                          "GtkWidget::focus-line-width = 0\n" +
-                          "xthickness = 0\n" +
-                          "ythickness = 0\n" +
-                       "}\n" +
-                       "widget \"*.GtkButton\" style \"qiaoke-tab-close-button-style\"");
+    //???: Gtk.Widget.set_name() does not work
+    this.close_btn.name = "qiaoke-tab-button";
 
     this.close_btn.set_relief(Gtk.ReliefStyle.NONE);
     this.close_btn.set_focus_on_click(false);

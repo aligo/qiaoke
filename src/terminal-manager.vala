@@ -1,18 +1,31 @@
 public class Qiaoke.TerminalManager : Gtk.Notebook {
 
+  public Gtk.HBox        new_tab_box    = new Gtk.HBox(false, 0);
+  private Gtk.Label      new_tab_dummy  = new Gtk.Label("");
+
   public TerminalManager() {
     this.set_tab_pos(Gtk.PositionType.BOTTOM);
-    this.new_tab();
-    this.new_tab();
+    this.set_tab_button_style();
+
+    this.init_new_tab_button();
     this.new_tab();
     this.show();
+  }
+
+  public void init_new_tab_button() {
+    this.new_tab_box.pack_start((new Gtk.Image.from_stock(Gtk.Stock.ADD, Gtk.IconSize.MENU)), false, false);
+
+    this.new_tab_box.show_all();
+    this.new_tab_dummy.show();
+
+    this.append_page(this.new_tab_dummy, this.new_tab_box);
+    this.switch_page.connect_after(this.switch_page_or_new);
   }
 
   public void new_tab() {
     TerminalBox qiaoke_box = new TerminalBox(this, "Terminal " + this.get_n_pages().to_string());
 
-    this.append_page(qiaoke_box, qiaoke_box.label_box);
-    this.set_current_page(this.get_n_pages() - 1);
+    this.set_current_page( this.insert_page(qiaoke_box, qiaoke_box.label_box, this.get_n_pages() - 1) );
   }
 
   public Terminal get_current_terminal() {
@@ -24,14 +37,27 @@ public class Qiaoke.TerminalManager : Gtk.Notebook {
   }
 
   public void set_terminal_background() {
-    int transparency = 30;
-    Gdk.Color bgcolor = {0, 0x0000, 0x0000, 0x0000};
-    Gdk.Color fgcolor = {0, 0xffff, 0xffff, 0xffff};
-    for (int i = 0; i < this.get_n_pages(); i++) {
-      TerminalBox qiaoke_box = (TerminalBox)this.get_nth_page(i);
-      qiaoke_box.terminal.set_colors(fgcolor, bgcolor, Qiaoke.Colors.tango_palette);
-      qiaoke_box.terminal.set_opacity((uint16)((100.0 - transparency) / 100.0 * 65535));
+    for (int i = 0; i < (this.get_n_pages() - 1); i++) {
+      ((TerminalBox)this.get_nth_page(i)).terminal.set_background();
     }
+  }
+
+  private void switch_page_or_new(Gtk.NotebookPage page, uint page_num) {
+    if ( page_num == this.get_n_pages() - 1 ) {
+      this.new_tab();
+    }
+  }
+
+  private void set_tab_button_style() {
+    Gtk.rc_parse_string("style \"qiaoke-tab-button-style\"\n" +
+                       "{\n" +
+                          "GtkButton::inner-border = {0,0,0,0}\n" +
+                          "GtkWidget::focus-padding = 0\n" +
+                          "GtkWidget::focus-line-width = 0\n" +
+                          "xthickness = 0\n" +
+                          "ythickness = 0\n" +
+                       "}\n" +
+                       "widget \"*.qiaoke-tab-button\" style \"qiaoke-tab-button-style\""); 
   }
 
 }

@@ -23,4 +23,12 @@ public class Qiaoke.Terminal : Vte.Terminal {
     thread_killer.join();
   }
 
+  public void set_background() {
+    int transparency = 30;
+    Gdk.Color bgcolor = {0, 0x0000, 0x0000, 0x0000};
+    Gdk.Color fgcolor = {0, 0xffff, 0xffff, 0xffff};
+    this.set_colors(fgcolor, bgcolor, Qiaoke.Colors.tango_palette);
+    this.set_opacity((uint16)((100.0 - transparency) / 100.0 * 65535));
+  }
+
 }
