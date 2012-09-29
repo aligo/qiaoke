@@ -13,6 +13,7 @@ public class Qiaoke.TerminalBox : Gtk.HBox {
     this.manager = manager;
 
     this.terminal.set_background();
+    this.terminal.child_exited.connect(this.close);
 
     this.scroll = new Gtk.VScrollbar(terminal.get_adjustment());
     this.scroll.set_no_show_all(true);
