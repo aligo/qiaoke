@@ -20,12 +20,14 @@ public class Qiaoke.TerminalManager : Gtk.Notebook {
 
     this.append_page(this.new_tab_dummy, this.new_tab_box);
     this.switch_page.connect_after(this.switch_page_or_new);
+    this.page_reordered.connect(this.finish_page_reordered);
   }
 
   public void new_tab() {
     TerminalBox qiaoke_box = new TerminalBox(this, "Terminal " + this.get_n_pages().to_string());
 
     this.set_current_page( this.insert_page(qiaoke_box, qiaoke_box.label_box, this.get_n_pages() - 1) );
+    this.set_tab_reorderable(qiaoke_box, true);
   }
 
   public Terminal get_current_terminal() {
@@ -45,6 +47,13 @@ public class Qiaoke.TerminalManager : Gtk.Notebook {
   private void switch_page_or_new(Gtk.NotebookPage page, uint page_num) {
     if ( page_num == this.get_n_pages() - 1 ) {
       this.new_tab();
+    }
+  }
+
+  private void finish_page_reordered(Gtk.Widget p0, uint p1) {
+    int r_limit = this.get_n_pages() - 2;
+    if ( p1 > r_limit) {
+      this.reorder_child(p0, r_limit);
     }
   }
 

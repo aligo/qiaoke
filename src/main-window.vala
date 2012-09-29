@@ -6,6 +6,10 @@ public class Qiaoke.MainWindow : Gtk.Window {
     this.title = "Qiaoke!";
     this.set_decorated(false);
     this.set_keep_above(true);
+    this.set_skip_taskbar_hint(true);
+    this.set_skip_pager_hint(true);
+    this.set_urgency_hint(true);
+    this.set_gravity(Gdk.Gravity.STATIC);
     this.set_colormap(this.get_screen().get_rgba_colormap());
     this.qiaoke_manager.set_terminal_background();
 
@@ -28,8 +32,8 @@ public class Qiaoke.MainWindow : Gtk.Window {
   }
 
   private void screen_changed_cb(Gtk.Widget widget, Gdk.Screen old_screen) {
-    this.set_colormap(this.get_screen().get_rgba_colormap());
-    this.set_position_size();
+    // this.set_colormap(this.get_screen().get_rgba_colormap());
+    // this.set_position_size();
   }
 
   private bool expose_cb(Gdk.EventExpose event) {
