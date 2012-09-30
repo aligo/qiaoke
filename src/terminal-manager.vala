@@ -42,12 +42,6 @@ public class Qiaoke.TerminalManager : Gtk.Notebook {
     this.get_current_terminal_box().terminal.grab_focus();
   }
 
-  public void set_terminal_background() {
-    for (int i = 0; i < (this.get_n_pages() - 1); i++) {
-      ((TerminalBox)this.get_nth_page(i)).terminal.set_background();
-    }
-  }
-
   private bool display_terminal_menu(Gdk.EventButton event) {
     // right button
     if (event.button == 3) {

@@ -10,6 +10,8 @@ public class Qiaoke.Terminal : Vte.Terminal {
     this.set_sensitive(true);
     this.set_size_request(1,1);
 
+    this.set_background();
+
     this.grab_focus();
     var args = new string[0];
     GLib.Shell.parse_argv(this.shell, out args);
@@ -23,12 +25,9 @@ public class Qiaoke.Terminal : Vte.Terminal {
     thread_killer.join();
   }
 
-  public void set_background() {
-    int transparency = 30;
-    Gdk.Color bgcolor = {0, 0x0000, 0x0000, 0x0000};
-    Gdk.Color fgcolor = {0, 0xffff, 0xffff, 0xffff};
-    this.set_colors(fgcolor, bgcolor, Qiaoke.Colors.tango_palette);
-    this.set_opacity((uint16)((100.0 - transparency) / 100.0 * 65535));
+  private void set_background() {
+    this.set_colors(Config.foreground_color, Config.background_color, Qiaoke.Colors.tango_palette);
+    this.set_opacity((uint16)((100.0 - Config.transparency) / 100.0 * 65535));
   }
 
 }

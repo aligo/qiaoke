@@ -18,8 +18,6 @@ public class Qiaoke.MainWindow : Gtk.Window {
     this.set_gravity(Gdk.Gravity.STATIC);
     this.set_colormap(this.get_screen().get_rgba_colormap());
 
-    this.qiaoke_manager.set_terminal_background();
-
     this.resizer.pack1(this.resizer_fixed1, false, true);
     this.resizer.pack2(this.resizer_fixed2, true, true);
     this.resizer.motion_notify_event.connect(this.resize_window_cb);

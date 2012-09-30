@@ -47,6 +47,21 @@ public class Qiaoke.ConfigFile : GLib.Object {
     return default_value;
   }
 
+  public Gdk.Color get_color_key(string group, string key, Gdk.Color default_value){
+    try {
+      string color_string = this.file.get_string(group, key);
+      Gdk.Color color;
+      if (Gdk.Color.parse(color_string, out color) == false) {
+        throw new GLib.ConvertError.FAILED("\"%s\" couldn't be parsed as color", color_string);
+      }
+      return color;
+    } catch(GLib.Error error) {
+      Errors.print_configfile(error);
+    }
+    this.file.set_string(group, key, default_value.to_string());
+    return default_value;
+  }
+
   public uint get_uint_key(string group, string key, uint default_value) {
     try {
       return (uint)this.file.get_uint64(group, key);
