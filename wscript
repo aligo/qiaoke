@@ -94,6 +94,10 @@ def build(bld):
     source        = [
                       'src/main.vala',
                       'src/main-window.vala',
+                      'src/config.vala',
+                      'src/config-file.vala',
+                      'src/config-signal.vala',
+                      'src/errors.vala',
                       'src/terminal.vala',
                       'src/terminal-manager.vala',
                       'src/terminal-box.vala',

@@ -34,6 +34,7 @@ public class Qiaoke.MainWindow : Gtk.Window {
     this.screen_changed.connect(screen_changed_cb);
     this.realize.connect(realize_cb);
     this.expose_event.connect(expose_cb);
+    Config.signal.window_height_changed.connect(set_position_size);
   }
 
   public void toggle() {
@@ -49,11 +50,11 @@ public class Qiaoke.MainWindow : Gtk.Window {
     double[] axes = {};
     event.device.get_state(this.window, axes, out mod_type);
     if (mod_type == Gdk.ModifierType.BUTTON1_MASK) {
-      this.height = (int)(event.y_root / (this.get_screen().get_height() / 100.0));
-      if (this.height < 1) {
-        this.height = 1;
+      int height = (int)(event.y_root / (this.get_screen().get_height() / 100.0));
+      if (height < 1) {
+        height = 1;
       }
-      this.set_position_size();
+      Config.window_height = height;
     }
     return true;
   }
@@ -79,7 +80,7 @@ public class Qiaoke.MainWindow : Gtk.Window {
     // int monitor = 0;
     screen.get_monitor_geometry(monitor, out rect);
 
-    rect.height = rect.height * this.height / 100;
+    rect.height = rect.height * Config.window_height / 100;
     this.move(rect.x, rect.y);
     this.resize(rect.width, rect.height);
   }
