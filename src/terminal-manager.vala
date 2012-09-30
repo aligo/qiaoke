@@ -1,9 +1,12 @@
 public class Qiaoke.TerminalManager : Gtk.Notebook {
 
-  public Gtk.HBox        new_tab_box    = new Gtk.HBox(false, 0);
+  public  Gtk.HBox       new_tab_box    = new Gtk.HBox(false, 0);
   private Gtk.Label      new_tab_dummy  = new Gtk.Label("");
+  private TerminalMenu   terminal_menu;
 
   public TerminalManager() {
+    this.terminal_menu = new TerminalMenu(this);
+
     this.set_tab_pos(Gtk.PositionType.BOTTOM);
     this.set_tab_button_style();
 
@@ -25,23 +28,33 @@ public class Qiaoke.TerminalManager : Gtk.Notebook {
 
   public void new_tab() {
     TerminalBox qiaoke_box = new TerminalBox(this, "Terminal " + this.get_n_pages().to_string());
+    qiaoke_box.terminal.button_press_event.connect(this.display_terminal_menu);
 
     this.set_current_page( this.insert_page(qiaoke_box, qiaoke_box.label_box, this.get_n_pages() - 1) );
     this.set_tab_reorderable(qiaoke_box, true);
   }
 
-  public Terminal get_current_terminal() {
-    return ((TerminalBox)this.get_nth_page(this.get_current_page())).terminal;
+  public TerminalBox get_current_terminal_box() {
+    return (TerminalBox) this.get_nth_page(this.get_current_page());
   }
 
   public void set_terminal_focus() {
-    this.get_current_terminal().grab_focus();
+    this.get_current_terminal_box().terminal.grab_focus();
   }
 
   public void set_terminal_background() {
     for (int i = 0; i < (this.get_n_pages() - 1); i++) {
       ((TerminalBox)this.get_nth_page(i)).terminal.set_background();
     }
+  }
+
+  private bool display_terminal_menu(Gdk.EventButton event) {
+    // right button
+    if (event.button == 3) {
+      this.terminal_menu.popup(null, null, null, event.button, event.time);
+      return true;
+    }
+    return false;
   }
 
   private void switch_page_or_new(Gtk.NotebookPage page, uint page_num) {

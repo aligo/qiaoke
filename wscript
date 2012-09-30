@@ -100,6 +100,7 @@ def build(bld):
                       'src/errors.vala',
                       'src/terminal.vala',
                       'src/terminal-manager.vala',
+                      'src/terminal-menu.vala',
                       'src/terminal-box.vala',
                       'src/terminal-killer.vala',
                       'src/colors.vala',

@@ -37,9 +37,14 @@ public class Qiaoke.TerminalBox : Gtk.HBox {
 
   public void close() {
     int page_pos = this.manager.page_num(this);
-    this.manager.set_current_page(page_pos - 1);
-    this.terminal.kill();
-    this.manager.remove_page(page_pos);
+    if (page_pos == 0 && this.manager.get_n_pages() == 2) {
+      // quit when close last tab
+      Qiaoke.Appliction.quit();
+    } else {
+      this.manager.set_current_page(page_pos - 1);
+      this.terminal.kill();
+      this.manager.remove_page(page_pos);
+    }
   }
 
   private void init_close_button() {

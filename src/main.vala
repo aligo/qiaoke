@@ -22,4 +22,9 @@ private class Qiaoke.Appliction {
     Gtk.main();
   }
 
+  public static void quit() {
+    Config.write();
+    Gtk.main_quit();
+  }
+
 }
