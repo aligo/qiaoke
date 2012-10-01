@@ -6,6 +6,7 @@ public class Qiaoke.TerminalManager : Gtk.Notebook {
 
   public TerminalManager() {
     this.terminal_menu = new TerminalMenu(this);
+    this.terminal_menu.set_accel_group(Hotkey.accel_group);
 
     this.set_tab_pos(Gtk.PositionType.BOTTOM);
     this.set_tab_button_style();

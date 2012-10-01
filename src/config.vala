@@ -9,6 +9,8 @@ public class Qiaoke.Config : GLib.Object {
   private const string FOREGROUND_COLOR = "foreground_color";
   private const string TRANSPARENCY     = "transparency";
   private const string TOGGLE           = "toggle";
+  private const string FULLSCREEN       = "fullscreen";
+  private const string QUIT             = "quit";
 
 
   private static ConfigFile   file;
@@ -68,6 +70,24 @@ public class Qiaoke.Config : GLib.Object {
     }
     set {
       file.set_string(HOTKEY, TOGGLE, value);
+    }
+  }
+
+  public static string fullscreen {
+    owned get {
+      return file.get_string_key(HOTKEY, FULLSCREEN, "F11");
+    }
+    set {
+      file.set_string(HOTKEY, FULLSCREEN, value);
+    }
+  }
+
+  public static string quit {
+    owned get {
+      return file.get_string_key(HOTKEY, QUIT, "<Control><Shift>q");
+    }
+    set {
+      file.set_string(HOTKEY, QUIT, value);
     }
   }
 }

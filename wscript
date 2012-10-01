@@ -98,6 +98,7 @@ def build(bld):
                       'src/config-file.vala',
                       'src/config-signal.vala',
                       'src/errors.vala',
+                      'src/hotkey.vala',
                       'src/terminal.vala',
                       'src/terminal-manager.vala',
                       'src/terminal-menu.vala',

@@ -1,12 +1,12 @@
 public class Qiaoke.MainWindow : Gtk.Window {
 
-  public Gtk.VBox         main_box        = new Gtk.VBox(false, 0);
-  public TerminalManager  qiaoke_manager  = new TerminalManager();
-  public Gtk.VPaned       resizer         = new Gtk.VPaned();
-  public Gtk.Fixed        resizer_fixed1  = new Gtk.Fixed();
-  public Gtk.Fixed        resizer_fixed2  = new Gtk.Fixed();
+  public  TerminalManager   qiaoke_manager  = new TerminalManager();
+  private Gtk.VBox          main_box        = new Gtk.VBox(false, 0);
+  private Gtk.VPaned        resizer         = new Gtk.VPaned();
+  private Gtk.Fixed         resizer_fixed1  = new Gtk.Fixed();
+  private Gtk.Fixed         resizer_fixed2  = new Gtk.Fixed();
 
-  public int              height          = 30;
+  private bool              is_fullscreen   = false;
 
   public MainWindow() {
     this.title = "Qiaoke!";
@@ -17,6 +17,9 @@ public class Qiaoke.MainWindow : Gtk.Window {
     this.set_urgency_hint(true);
     this.set_gravity(Gdk.Gravity.STATIC);
     this.set_colormap(this.get_screen().get_rgba_colormap());
+
+    Hotkey.bind(Config.fullscreen, accel_fullscreen_cb);
+    this.add_accel_group(Hotkey.accel_group);
 
     this.resizer.pack1(this.resizer_fixed1, false, true);
     this.resizer.pack2(this.resizer_fixed2, true, true);
@@ -32,6 +35,7 @@ public class Qiaoke.MainWindow : Gtk.Window {
     this.screen_changed.connect(screen_changed_cb);
     this.realize.connect(realize_cb);
     this.expose_event.connect(expose_cb);
+
     Config.signal.window_height_changed.connect(set_position_size);
   }
 
@@ -41,6 +45,19 @@ public class Qiaoke.MainWindow : Gtk.Window {
     } else {
       this.show();
     }
+  }
+
+  private bool accel_fullscreen_cb(Gtk.AccelGroup accel_group, GLib.Object acceleratable, uint keyval, Gdk.ModifierType modifier) {
+    if (this.is_fullscreen) {
+      this.resizer.show();
+      this.unfullscreen();
+      this.is_fullscreen = false;
+    } else {
+      this.resizer.hide();
+      this.fullscreen();
+      this.is_fullscreen = true;
+    }
+    return true;
   }
 
   private bool resize_window_cb(Gdk.EventMotion event) {
