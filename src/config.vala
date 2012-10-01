@@ -2,11 +2,13 @@ public class Qiaoke.Config : GLib.Object {
   /* Groups */
   private const string GENERAL          = "General";
   private const string TERMINAL         = "Terminal";
+  private const string HOTKEY           = "Hotkey";
   /* Keys */
   private const string WINDOW_HEIGHT    = "window_height";
   private const string BACKGROUND_COLOR = "background_color";
   private const string FOREGROUND_COLOR = "foreground_color";
   private const string TRANSPARENCY     = "transparency";
+  private const string TOGGLE           = "toggle";
 
 
   private static ConfigFile   file;
@@ -57,6 +59,15 @@ public class Qiaoke.Config : GLib.Object {
     }
     set {
       file.set_uint(TERMINAL, TRANSPARENCY, value);
+    }
+  }
+
+  public static string toggle {
+    owned get {
+      return file.get_string_key(HOTKEY, TOGGLE, "F12");
+    }
+    set {
+      file.set_string(HOTKEY, TOGGLE, value);
     }
   }
 }
