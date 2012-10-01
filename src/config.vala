@@ -4,6 +4,7 @@ public class Qiaoke.Config : GLib.Object {
   private const string TERMINAL         = "Terminal";
   private const string HOTKEY           = "Hotkey";
   /* Keys */
+  private const string MONITOR          = "monitor";
   private const string WINDOW_HEIGHT    = "window_height";
   private const string BACKGROUND_COLOR = "background_color";
   private const string FOREGROUND_COLOR = "foreground_color";
@@ -28,6 +29,16 @@ public class Qiaoke.Config : GLib.Object {
 
   public static void write() {
     file.write();
+  }
+
+  public static int monitor {
+    get {
+      return file.get_integer_key(GENERAL, MONITOR, 0);
+    }
+    set {
+      file.set_integer(GENERAL, MONITOR, value);
+      signal.window_height_changed(value);
+    }
   }
 
   public static int window_height {

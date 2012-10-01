@@ -91,8 +91,11 @@ public class Qiaoke.MainWindow : Gtk.Window {
   private void set_position_size() {
     Gdk.Rectangle rect;
     var screen  = this.get_screen();
-    int monitor = screen.get_primary_monitor();
-    // int monitor = 0;
+    int monitor = Config.monitor;
+    if ( monitor >= screen.get_n_monitors()) {
+      monitor = 0;
+      Config.monitor = 0;
+    }
     screen.get_monitor_geometry(monitor, out rect);
 
     rect.height = rect.height * Config.window_height / 100;
