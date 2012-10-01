@@ -40,7 +40,11 @@ public class Qiaoke.TerminalBox : Gtk.HBox {
       // quit when close last tab
       Qiaoke.Appliction.quit();
     } else {
-      this.manager.set_current_page(page_pos - 1);
+      if (page_pos == 0) {
+        this.manager.set_current_page(1);
+      } else {
+        this.manager.set_current_page(page_pos - 1);
+      }
       this.terminal.kill();
       this.manager.remove_page(page_pos);
     }
