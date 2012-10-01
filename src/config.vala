@@ -11,6 +11,9 @@ public class Qiaoke.Config : GLib.Object {
   private const string TOGGLE           = "toggle";
   private const string FULLSCREEN       = "fullscreen";
   private const string QUIT             = "quit";
+  private const string NEW_TAB          = "new_tab";
+  private const string CLOSE_TAB        = "close_tab";
+  private const string TERMINAL_RESET   = "terminal_reset";
 
 
   private static ConfigFile   file;
@@ -88,6 +91,33 @@ public class Qiaoke.Config : GLib.Object {
     }
     set {
       file.set_string(HOTKEY, QUIT, value);
+    }
+  }
+
+  public static string new_tab {
+    owned get {
+      return file.get_string_key(HOTKEY, NEW_TAB, "<Control><Shift>t");
+    }
+    set {
+      file.set_string(HOTKEY, NEW_TAB, value);
+    }
+  }
+
+  public static string close_tab {
+    owned get {
+      return file.get_string_key(HOTKEY, CLOSE_TAB, "<Control><Shift>w");
+    }
+    set {
+      file.set_string(HOTKEY, CLOSE_TAB, value);
+    }
+  }
+
+  public static string terminal_reset {
+    owned get {
+      return file.get_string_key(HOTKEY, TERMINAL_RESET, "<Control>k");
+    }
+    set {
+      file.set_string(HOTKEY, TERMINAL_RESET, value);
     }
   }
 }
