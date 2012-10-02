@@ -104,6 +104,7 @@ def build(bld):
                       'src/terminal-menu.vala',
                       'src/terminal-box.vala',
                       'src/terminal-killer.vala',
+                      'src/search-dialog.vala',
                       'src/colors.vala',
                       'deps/eggaccelerators.c',
                       'deps/tomboykeybinder.c'

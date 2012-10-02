@@ -4,6 +4,7 @@ public class Qiaoke.TerminalMenu : Gtk.Menu {
 
   private Gtk.MenuItem copy           = new Gtk.MenuItem.with_label("Copy");
   private Gtk.MenuItem paste          = new Gtk.MenuItem.with_label("Paste");
+  private Gtk.MenuItem find           = new Gtk.MenuItem.with_label("Find...");
   private Gtk.MenuItem terminal_reset = new Gtk.MenuItem.with_label("Terminal Reset");
   private Gtk.MenuItem close_tab      = new Gtk.MenuItem.with_label("Close Tab");
   private Gtk.MenuItem quit           = new Gtk.MenuItem.with_label("Quit");
@@ -13,12 +14,15 @@ public class Qiaoke.TerminalMenu : Gtk.Menu {
 
     this.copy.activate.connect(this.copy_cb);
     this.paste.activate.connect(this.paste_cb);
+    this.find.activate.connect(this.find_cb);
     this.terminal_reset.activate.connect(this.terminal_reset_cb);
     this.close_tab.activate.connect(this.close_tab_cb);
     this.quit.activate.connect(this.quit_cb);
 
     this.append(this.copy);
     this.append(this.paste);
+    this.append(new Gtk.SeparatorMenuItem());
+    this.append(this.find);
     this.append(new Gtk.SeparatorMenuItem());
     this.append(this.terminal_reset);
     this.append(this.close_tab);
@@ -41,6 +45,23 @@ public class Qiaoke.TerminalMenu : Gtk.Menu {
 
   private void paste_cb() {
     this.manager.get_current_terminal_box().terminal.paste_clipboard();
+  }
+
+  private void find_cb() {
+    SearchDialog dialog = new SearchDialog();
+    int response = dialog.run();
+    dialog.save();
+    if (response == Gtk.ResponseType.ACCEPT) {
+      Terminal terminal = this.manager.get_current_terminal_box().terminal;
+      terminal.search_set_gregex(dialog.get_regex());
+      if (SearchDialog.search_backwards) {
+        terminal.search_find_previous();
+      } else {
+        terminal.search_find_next();
+      }
+    }
+    dialog.destroy();
+    this.manager.set_terminal_focus();
   }
 
   private void terminal_reset_cb() {
