@@ -12,6 +12,7 @@ public class Qiaoke.MainWindow : Gtk.Window {
 
   public MainWindow() {
     this.title = "Qiaoke!";
+    this.set_border_width(0);
     this.set_decorated(false);
     this.set_keep_above(true);
     this.set_skip_taskbar_hint(true);

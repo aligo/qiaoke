@@ -4,6 +4,8 @@ public class Qiaoke.TerminalManager : Gtk.Notebook {
   private Gtk.Label      new_tab_dummy  = new Gtk.Label("");
   private TerminalMenu   terminal_menu;
 
+  private int            terminal_i     = 0;
+
   public TerminalManager() {
     this.terminal_menu = new TerminalMenu(this);
     this.terminal_menu.set_accel_group(Hotkey.accel_group);
@@ -28,11 +30,12 @@ public class Qiaoke.TerminalManager : Gtk.Notebook {
   }
 
   public void new_tab() {
-    TerminalBox qiaoke_box = new TerminalBox(this, "Terminal " + this.get_n_pages().to_string());
+    TerminalBox qiaoke_box = new TerminalBox(this, "Terminal " + this.terminal_i.to_string());
     qiaoke_box.terminal.button_press_event.connect(this.display_terminal_menu);
 
     this.set_current_page( this.insert_page(qiaoke_box, qiaoke_box.label_box, this.get_n_pages() - 1) );
     this.set_tab_reorderable(qiaoke_box, true);
+    this.terminal_i += 1;
   }
 
   public TerminalBox get_current_terminal_box() {

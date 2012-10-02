@@ -47,6 +47,7 @@ public class Qiaoke.TerminalMenu : Gtk.Menu {
     Hotkey.bind(Config.terminal_reset,  accel_terminal_reset_cb);
     Hotkey.bind(Config.new_tab,         accel_new_tab_cb);
     Hotkey.bind(Config.close_tab,       accel_close_tab_cb);
+    Hotkey.bind(Config.rename_tab,      accel_rename_tab_cb);
     Hotkey.bind(Config.quit,            accel_quit_cb);
   }
 
@@ -127,6 +128,11 @@ public class Qiaoke.TerminalMenu : Gtk.Menu {
 
   private bool accel_close_tab_cb(Gtk.AccelGroup accel_group, GLib.Object acceleratable, uint keyval, Gdk.ModifierType modifier) {
     this.close_tab_cb();
+    return true;
+  }
+
+  private bool accel_rename_tab_cb(Gtk.AccelGroup accel_group, GLib.Object acceleratable, uint keyval, Gdk.ModifierType modifier) {
+    this.rename_tab_cb();
     return true;
   }
 

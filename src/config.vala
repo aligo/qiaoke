@@ -14,6 +14,7 @@ public class Qiaoke.Config : GLib.Object {
   private const string QUIT             = "quit";
   private const string NEW_TAB          = "new_tab";
   private const string CLOSE_TAB        = "close_tab";
+  private const string RENAME_TAB       = "rename_tab";
   private const string TERMINAL_RESET   = "terminal_reset";
   private const string COPY             = "copy";
   private const string PASTE            = "paste";
@@ -125,6 +126,15 @@ public class Qiaoke.Config : GLib.Object {
     }
     set {
       file.set_string(HOTKEY, CLOSE_TAB, value);
+    }
+  }
+
+  public static string rename_tab {
+    owned get {
+      return file.get_string_key(HOTKEY, RENAME_TAB, "F2");
+    }
+    set {
+      file.set_string(HOTKEY, RENAME_TAB, value);
     }
   }
 
