@@ -41,6 +41,7 @@ public class Qiaoke.SearchDialog : Gtk.Dialog {
 
     this.vbox.show_all();
 
+    this.search_entry.activate.connect(entry_activate_cb);
     this.response.connect(response_cb);
   }
 
@@ -69,6 +70,10 @@ public class Qiaoke.SearchDialog : Gtk.Dialog {
     this.terminal.search_regex             = this.regex_check.get_active();
     this.terminal.search_backwards         = this.search_backwards_check.get_active();
     this.terminal.search_wrap_around       = this.wrap_around_check.get_active();
+  }
+
+  private void entry_activate_cb() {
+    this.response_cb(Gtk.ResponseType.ACCEPT);
   }
 
   private void response_cb(int response_id) {
