@@ -4,6 +4,13 @@ public class Qiaoke.Terminal : Vte.Terminal {
   private GLib.Pid pid;
   private string shell = Vte.get_user_shell();
 
+  public string search_text              = "";
+  public bool   search_match_case        = false;
+  public bool   search_entire_word       = false;
+  public bool   search_regex             = false;
+  public bool   search_backwards         = true;
+  public bool   search_wrap_around       = true;
+
   public Terminal() {
     this.set_audible_bell(false);
     this.set_visible_bell(false);
@@ -23,6 +30,11 @@ public class Qiaoke.Terminal : Vte.Terminal {
   public void kill() {
     unowned Thread<void*> thread_killer = GLib.Thread.create<void*> (this.killer.thread_func, true);
     thread_killer.join();
+  }
+
+  public void run_search_dialog() {
+    SearchDialog dialog = new SearchDialog(this);
+    dialog.run();
   }
 
   private void set_background() {

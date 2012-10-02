@@ -28,6 +28,7 @@ public class Qiaoke.TerminalMenu : Gtk.Menu {
     this.append(this.close_tab);
     this.append(this.quit);
     this.show_all();
+    
     Hotkey.bind(Config.copy,            accel_copy_cb);
     Hotkey.bind(Config.paste,           accel_paste_cb);
     Hotkey.bind(Config.terminal_reset,  accel_terminal_reset_cb);
@@ -48,20 +49,7 @@ public class Qiaoke.TerminalMenu : Gtk.Menu {
   }
 
   private void find_cb() {
-    SearchDialog dialog = new SearchDialog();
-    int response = dialog.run();
-    dialog.save();
-    if (response == Gtk.ResponseType.ACCEPT) {
-      Terminal terminal = this.manager.get_current_terminal_box().terminal;
-      terminal.search_set_gregex(dialog.get_regex());
-      if (SearchDialog.search_backwards) {
-        terminal.search_find_previous();
-      } else {
-        terminal.search_find_next();
-      }
-    }
-    dialog.destroy();
-    this.manager.set_terminal_focus();
+    this.manager.get_current_terminal_box().terminal.run_search_dialog();
   }
 
   private void terminal_reset_cb() {

@@ -10,14 +10,10 @@ public class Qiaoke.SearchDialog : Gtk.Dialog {
   private Gtk.CheckButton search_backwards_check  = new Gtk.CheckButton.with_label("Search backwards");
   private Gtk.CheckButton wrap_around_check       = new Gtk.CheckButton.with_label("Wrap around");
 
-  public static string search_text       = "";
-  public static bool   match_case        = false;
-  public static bool   entire_word       = false;
-  public static bool   regex             = false;
-  public static bool   search_backwards  = true;
-  public static bool   wrap_around       = true;
+  private Terminal        terminal;
 
-  public SearchDialog() {
+  public SearchDialog(Terminal terminal) {
+    this.terminal = terminal;
     this.title = "Find";
     this.set_modal(false);
     this.set_resizable(false);
@@ -29,12 +25,12 @@ public class Qiaoke.SearchDialog : Gtk.Dialog {
     this.search_box.pack_start(this.search_label, false, false);
     this.search_box.pack_start(this.search_entry, false, false);
 
-    this.search_entry.set_text(search_text);
-    this.match_case_check.set_active(match_case);
-    this.entire_word_check.set_active(entire_word);
-    this.regex_check.set_active(regex);
-    this.search_backwards_check.set_active(search_backwards);
-    this.wrap_around_check.set_active(wrap_around);
+    this.search_entry.set_text(this.terminal.search_text);
+    this.match_case_check.set_active(this.terminal.search_match_case);
+    this.entire_word_check.set_active(this.terminal.search_entire_word);
+    this.regex_check.set_active(this.terminal.search_regex);
+    this.search_backwards_check.set_active(this.terminal.search_backwards);
+    this.wrap_around_check.set_active(this.terminal.search_wrap_around);
 
     this.vbox.pack_start(this.search_box, false, false);
     this.vbox.pack_start(this.match_case_check, false, false);
@@ -44,33 +40,49 @@ public class Qiaoke.SearchDialog : Gtk.Dialog {
     this.vbox.pack_start(this.wrap_around_check, false, false);
 
     this.vbox.show_all();
+
+    this.response.connect(response_cb);
   }
 
-  public GLib.Regex get_regex() {
-    string pattern = search_text;
+  private GLib.Regex get_regex() {
+    string pattern = this.terminal.search_text;
     GLib.RegexCompileFlags comilpe_flags = GLib.RegexCompileFlags.OPTIMIZE;
-    if (! match_case ) {
+    if (! this.terminal.search_match_case ) {
       comilpe_flags |= GLib.RegexCompileFlags.CASELESS;
     }
-    if (regex) {
+    if ( this.terminal.search_regex ) {
       comilpe_flags |= GLib.RegexCompileFlags.MULTILINE;
     } else {
       pattern = GLib.Regex.escape_string(pattern, -1);
     }
-    if (entire_word) {
-      pattern = pattern.printf("\\b%s\\b");
+    if (this.terminal.search_entire_word) {
+      pattern = "\\b" + pattern + "\\b";
     }
     GLib.Regex regex = new GLib.Regex(pattern, comilpe_flags, 0);
     return regex;
   }
 
-  public void save() {
-    search_text       = this.search_entry.get_text();
-    match_case        = this.match_case_check.get_active();
-    entire_word       = this.entire_word_check.get_active();
-    regex             = this.regex_check.get_active();
-    search_backwards  = this.search_backwards_check.get_active();
-    wrap_around       = this.wrap_around_check.get_active();
+  private void update_terminal_search() {
+    this.terminal.search_text              = this.search_entry.get_text();
+    this.terminal.search_match_case        = this.match_case_check.get_active();
+    this.terminal.search_entire_word       = this.entire_word_check.get_active();
+    this.terminal.search_regex             = this.regex_check.get_active();
+    this.terminal.search_backwards         = this.search_backwards_check.get_active();
+    this.terminal.search_wrap_around       = this.wrap_around_check.get_active();
+  }
+
+  private void response_cb(int response_id) {
+    this.update_terminal_search();
+    if (response_id == Gtk.ResponseType.ACCEPT) {
+      this.terminal.search_set_gregex(this.get_regex());
+      if (this.terminal.search_backwards) {
+        this.terminal.search_find_previous();
+      } else {
+        this.terminal.search_find_next();
+      }
+    }
+    this.destroy();
+    terminal.grab_focus();
   }
 
 }
