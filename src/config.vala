@@ -17,6 +17,9 @@ public class Qiaoke.Config : GLib.Object {
   private const string TERMINAL_RESET   = "terminal_reset";
   private const string COPY             = "copy";
   private const string PASTE            = "paste";
+  private const string FIND             = "find";
+  private const string FIND_NEXT        = "find_next";
+  private const string FIND_PREVIOUS    = "find_previous";
 
 
   private static ConfigFile   file;
@@ -149,6 +152,33 @@ public class Qiaoke.Config : GLib.Object {
     }
     set {
       file.set_string(HOTKEY, PASTE, value);
+    }
+  }
+
+  public static string find {
+    owned get {
+      return file.get_string_key(HOTKEY, FIND, "<Control><Shift>f");
+    }
+    set {
+      file.set_string(HOTKEY, FIND, value);
+    }
+  }
+
+  public static string find_next {
+    owned get {
+      return file.get_string_key(HOTKEY, FIND_NEXT, "<Control><Shift>h");
+    }
+    set {
+      file.set_string(HOTKEY, FIND_NEXT, value);
+    }
+  }
+
+  public static string find_previous {
+    owned get {
+      return file.get_string_key(HOTKEY, FIND_PREVIOUS, "<Control><Shift>g");
+    }
+    set {
+      file.set_string(HOTKEY, FIND_PREVIOUS, value);
     }
   }
 }

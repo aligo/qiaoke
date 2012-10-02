@@ -74,7 +74,9 @@ public class Qiaoke.SearchDialog : Gtk.Dialog {
   private void response_cb(int response_id) {
     this.update_terminal_search();
     if (response_id == Gtk.ResponseType.ACCEPT) {
+      this.terminal.search_sensitive = true;
       this.terminal.search_set_gregex(this.get_regex());
+      this.terminal.search_set_wrap_around(this.terminal.search_wrap_around);
       if (this.terminal.search_backwards) {
         this.terminal.search_find_previous();
       } else {

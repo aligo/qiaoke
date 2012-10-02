@@ -4,6 +4,7 @@ public class Qiaoke.Terminal : Vte.Terminal {
   private GLib.Pid pid;
   private string shell = Vte.get_user_shell();
 
+  public bool   search_sensitive         = false;
   public string search_text              = "";
   public bool   search_match_case        = false;
   public bool   search_entire_word       = false;
