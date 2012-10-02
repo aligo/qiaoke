@@ -15,7 +15,8 @@ public class Qiaoke.SearchDialog : Gtk.Dialog {
   public SearchDialog(Terminal terminal) {
     this.terminal = terminal;
     this.title = "Find";
-    this.set_modal(false);
+    this.set_transient_for(MainWindow.get_instance());
+    this.set_modal(true);
     this.set_resizable(false);
     this.set_border_width(10);
     this.vbox.set_spacing(2);
@@ -89,7 +90,7 @@ public class Qiaoke.SearchDialog : Gtk.Dialog {
       }
     }
     this.destroy();
-    terminal.grab_focus();
+    this.terminal.grab_focus();
   }
 
 }

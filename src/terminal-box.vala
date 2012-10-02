@@ -1,6 +1,5 @@
 public class Qiaoke.TerminalBox : Gtk.HBox {
 
-
   public TerminalManager manager;
   public Terminal        terminal     = new Qiaoke.Terminal();
   public Gtk.HBox        label_box    = new Gtk.HBox(false, 0);
@@ -48,6 +47,11 @@ public class Qiaoke.TerminalBox : Gtk.HBox {
       this.terminal.kill();
       this.manager.remove_page(page_pos);
     }
+  }
+
+  public void run_rename_dialog() {
+    RenameDialog dialog = new RenameDialog(this);
+    dialog.run();
   }
 
   private void init_close_button() {

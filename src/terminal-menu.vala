@@ -8,6 +8,7 @@ public class Qiaoke.TerminalMenu : Gtk.Menu {
   private Gtk.MenuItem find_next      = new Gtk.MenuItem.with_label("Find Next");
   private Gtk.MenuItem find_previous  = new Gtk.MenuItem.with_label("Find Previous");
   private Gtk.MenuItem terminal_reset = new Gtk.MenuItem.with_label("Terminal Reset");
+  private Gtk.MenuItem rename_tab     = new Gtk.MenuItem.with_label("Rename Tab");
   private Gtk.MenuItem close_tab      = new Gtk.MenuItem.with_label("Close Tab");
   private Gtk.MenuItem quit           = new Gtk.MenuItem.with_label("Quit");
 
@@ -20,6 +21,7 @@ public class Qiaoke.TerminalMenu : Gtk.Menu {
     this.find_next.activate.connect(this.find_next_cb);
     this.find_previous.activate.connect(this.find_previous_cb);
     this.terminal_reset.activate.connect(this.terminal_reset_cb);
+    this.rename_tab.activate.connect(this.rename_tab_cb);
     this.close_tab.activate.connect(this.close_tab_cb);
     this.quit.activate.connect(this.quit_cb);
 
@@ -31,6 +33,7 @@ public class Qiaoke.TerminalMenu : Gtk.Menu {
     this.append(this.find_previous);
     this.append(new Gtk.SeparatorMenuItem());
     this.append(this.terminal_reset);
+    this.append(this.rename_tab);
     this.append(this.close_tab);
     this.append(this.quit);
     this.show_all();
@@ -78,6 +81,10 @@ public class Qiaoke.TerminalMenu : Gtk.Menu {
 
   private void terminal_reset_cb() {
     this.manager.get_current_terminal_box().terminal.reset(true, true);
+  }
+
+  private void rename_tab_cb () {
+    this.manager.get_current_terminal_box().run_rename_dialog();
   }
 
   private void close_tab_cb() {

@@ -8,6 +8,8 @@ public class Qiaoke.MainWindow : Gtk.Window {
 
   private bool              is_fullscreen   = false;
 
+  public  static Gtk.Window        instance;
+
   public MainWindow() {
     this.title = "Qiaoke!";
     this.set_decorated(false);
@@ -37,6 +39,8 @@ public class Qiaoke.MainWindow : Gtk.Window {
     this.expose_event.connect(expose_cb);
 
     Config.signal.window_height_changed.connect(set_position_size);
+
+    instance = this;
   }
 
   public void toggle() {
@@ -101,6 +105,10 @@ public class Qiaoke.MainWindow : Gtk.Window {
     rect.height = rect.height * Config.window_height / 100;
     this.move(rect.x, rect.y);
     this.resize(rect.width, rect.height);
+  }
+
+  public static Gtk.Window get_instance() {
+    return instance;
   }
 
 }
