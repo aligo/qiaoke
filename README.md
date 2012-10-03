@@ -22,6 +22,7 @@ Run Requirements
  * glib-2.0 >= 2.6
  * gtk+-2.0 >= 2.16
  * vte >= 0.28
+ * unique-1.0
 
 Installation
 -

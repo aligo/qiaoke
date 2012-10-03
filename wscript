@@ -67,6 +67,11 @@ def configure(conf):
     atleast_version = '0.28',
     args            = '--cflags --libs')
 
+  conf.check_cfg(
+    package         = 'unique-1.0',
+    uselib_store    = 'UNIQUE',
+    args            = '--cflags --libs')
+
   CFLAGS.extend(['-I/usr/local/include', '-include', 'config.h'])
   VALAFLAGS.extend(['--thread'])
   conf.define('VERSION', VERSION)
@@ -87,10 +92,10 @@ def configure(conf):
 def build(bld):
 
   bld.program(
-    packages      = ['vte', 'config', 'posix', 'tomboykeybinder'],
+    packages      = ['vte', 'unique-1.0', 'config', 'posix', 'tomboykeybinder'],
     vapi_dirs     = 'vapi',
     target        = APPNAME,
-    uselib        = ['GLIB', 'GOBJECT', 'GTHREAD', 'GTK', 'VTE'],
+    uselib        = ['GLIB', 'GOBJECT', 'GTHREAD', 'GTK', 'VTE', 'UNIQUE'],
     source        = [
                       'src/main.vala',
                       'src/main-window.vala',
