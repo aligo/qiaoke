@@ -89,6 +89,7 @@ public class Qiaoke.MainWindow : Gtk.Window {
   }
 
   private bool expose_cb(Gdk.EventExpose event) {
+    this.set_position_size();
     this.qiaoke_manager.set_terminal_focus();
     return false;
   }
