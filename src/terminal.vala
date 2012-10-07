@@ -26,6 +26,8 @@ public class Qiaoke.Terminal : Vte.Terminal {
     this.fork_command_full(Vte.PtyFlags.DEFAULT, GLib.Environment.get_home_dir(), args, null, GLib.SpawnFlags.SEARCH_PATH, null, out this.pid);
     this.killer = new TerminalKiller(this.pid);
     this.show();
+
+    this.button_press_event.connect(this.button_press_event_cb);
   }
 
   public void kill() {
@@ -41,6 +43,18 @@ public class Qiaoke.Terminal : Vte.Terminal {
   private void set_background() {
     this.set_colors(Config.foreground_color, Config.background_color, Qiaoke.Colors.tango_palette);
     this.set_opacity((uint16)((100.0 - Config.transparency) / 100.0 * 65535));
+  }
+
+  private bool button_press_event_cb(Gdk.EventButton event) {
+    // press middle button
+    if (event.button == 2) {
+      if (this.get_has_selection()) {
+        this.copy_clipboard();
+      } else {
+        this.paste_clipboard();
+      }
+    }
+    return false;
   }
 
 }
