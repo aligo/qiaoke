@@ -8,7 +8,7 @@ Qiaoke is a slide-down Terminal Emulator for GTK Environment.
 
 Version
 -
-0.0.2
+0.0.3
 
 Build Requirements
 -
@@ -55,6 +55,6 @@ aligo Kang <aligo_x@163.com>
 
 License
 -
-Copyright (C) 2012 aligo Kang <aligo_x@163.com>
+Copyright (C) 2012-2013 aligo Kang <aligo_x@163.com>
 
 You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.

@@ -18,6 +18,8 @@ public class Qiaoke.Terminal : Vte.Terminal {
     this.set_sensitive(true);
     this.set_size_request(1,1);
 
+    this.set_scrollback_lines(Config.scrollback_lines);
+
     this.set_background();
 
     this.grab_focus();

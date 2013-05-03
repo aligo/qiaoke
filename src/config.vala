@@ -9,6 +9,7 @@ public class Qiaoke.Config : GLib.Object {
   private const string BACKGROUND_COLOR = "background_color";
   private const string FOREGROUND_COLOR = "foreground_color";
   private const string TRANSPARENCY     = "transparency";
+  private const string SCROLLBACK_LINES = "scrollback_lines";
   private const string TOGGLE           = "toggle";
   private const string FULLSCREEN       = "fullscreen";
   private const string QUIT             = "quit";
@@ -81,6 +82,15 @@ public class Qiaoke.Config : GLib.Object {
     }
     set {
       file.set_uint(TERMINAL, TRANSPARENCY, value);
+    }
+  }
+
+  public static int scrollback_lines {
+    get {
+      return file.get_integer_key(TERMINAL, SCROLLBACK_LINES, 4096);
+    }
+    set {
+      file.set_integer(TERMINAL, SCROLLBACK_LINES, value);
     }
   }
 
