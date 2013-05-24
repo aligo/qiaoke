@@ -27,6 +27,7 @@ public class Qiaoke.TerminalManager : Gtk.Notebook {
     this.append_page(this.new_tab_dummy, this.new_tab_box);
     this.switch_page.connect_after(this.switch_page_or_new);
     this.page_reordered.connect(this.finish_page_reordered);
+    this.scroll_event.connect(this.scroll_event_cb);
   }
 
   public void new_tab() {
@@ -66,6 +67,23 @@ public class Qiaoke.TerminalManager : Gtk.Notebook {
     if ( p1 > r_limit) {
       this.reorder_child(p0, r_limit);
     }
+  }
+
+  private bool scroll_event_cb(Gdk.EventScroll event) {
+    int page_num = this.get_current_page();
+    if ( event.direction == Gdk.ScrollDirection.DOWN || event.direction == Gdk.ScrollDirection.RIGHT ) {
+      page_num += 1;
+    } else {
+      page_num -= 1;
+    }
+    if ( page_num > this.get_n_pages() - 2 ) {
+      page_num = 0;
+    }
+    if ( page_num < 0 ) {
+      page_num = this.get_n_pages() - 2;
+    }
+    this.set_current_page( page_num );
+    return true;
   }
 
   private void set_tab_button_style() {
