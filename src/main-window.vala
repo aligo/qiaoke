@@ -69,7 +69,7 @@ public class Qiaoke.MainWindow : Gtk.Window {
     Gdk.ModifierType mod_type;
     double[] axes = {};
     event.device.get_state(this.window, axes, out mod_type);
-    if (mod_type == Gdk.ModifierType.BUTTON1_MASK) {
+    if (mod_type >= Gdk.ModifierType.BUTTON1_MASK && mod_type < Gdk.ModifierType.BUTTON2_MASK) {
       int height = (int)(event.y_root / (this.get_screen().get_height() / 100.0));
       if (height < 1) {
         height = 1;
