@@ -5,6 +5,7 @@ public class Qiaoke.TerminalBox : Gtk.HBox {
   public Gtk.HBox        label_box    = new Gtk.HBox(false, 0);
   public Gtk.Label       label        = new Gtk.Label("");
   public Gtk.Button      close_btn    = new Gtk.Button();
+  public bool            locked       = false;
 
   private Gtk.VScrollbar scroll;
 
@@ -52,6 +53,15 @@ public class Qiaoke.TerminalBox : Gtk.HBox {
   public void run_rename_dialog() {
     RenameDialog dialog = new RenameDialog(this);
     dialog.run();
+  }
+
+  public void toggle_lock() {
+    this.locked = ! this.locked;
+    if (this.locked) {
+      this.close_btn.hide();
+    } else {
+      this.close_btn.show();
+    }
   }
 
   private void init_close_button() {

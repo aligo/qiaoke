@@ -1,9 +1,9 @@
 #! /usr/bin/env python
 # encoding: utf-8
-# Copyright © 2012 aligo Kang
+# Copyright © 2012-2014 aligo Kang
 
 APPNAME = 'qiaoke'
-VERSION = '0.0.1'
+VERSION = '0.0.5'
 
 top = '.'
 out = 'build'

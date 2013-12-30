@@ -50,6 +50,7 @@ public class Qiaoke.TerminalManager : Gtk.Notebook {
   private bool display_terminal_menu(Gdk.EventButton event) {
     // right button
     if (event.button == 3) {
+      this.terminal_menu.label_toggle_lock();
       this.terminal_menu.popup(null, null, null, event.button, event.time);
       return true;
     }

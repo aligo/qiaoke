@@ -8,7 +8,7 @@ Qiaoke is a slide-down Terminal Emulator for GTK Environment.
 
 Version
 -
-0.0.4
+0.0.5
 
 Build Requirements
 -
@@ -44,6 +44,7 @@ Default shortcuts
  * `Ctrl+Shift+f` - Find...
  * `Ctrl+Shift+h` - Find Next
  * `Ctrl+Shift+g` - Find Previous
+ * `Ctrl+Shift+l` - Toggle Lock Tab (Hide close button)
 
 Configure
 -
@@ -55,6 +56,6 @@ aligo Kang <aligo_x@163.com>
 
 License
 -
-Copyright (C) 2012-2013 aligo Kang <aligo_x@163.com>
+Copyright (C) 2012-2014 aligo Kang <aligo_x@163.com>
 
 You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.
