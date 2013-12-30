@@ -71,12 +71,17 @@ public class Qiaoke.TerminalManager : Gtk.Notebook {
   }
 
   private bool scroll_event_cb(Gdk.EventScroll event) {
-    int page_num = this.get_current_page();
     if ( event.direction == Gdk.ScrollDirection.DOWN || event.direction == Gdk.ScrollDirection.RIGHT ) {
-      page_num += 1;
+      this.jump_tab(1);
     } else {
-      page_num -= 1;
+      this.jump_tab(-1);
     }
+    return true;
+  }
+
+  public void jump_tab(int jump) {
+    int page_num = this.get_current_page();
+    page_num += jump;
     if ( page_num > this.get_n_pages() - 2 ) {
       page_num = 0;
     }
@@ -84,7 +89,6 @@ public class Qiaoke.TerminalManager : Gtk.Notebook {
       page_num = this.get_n_pages() - 2;
     }
     this.set_current_page( page_num );
-    return true;
   }
 
   private void set_tab_button_style() {

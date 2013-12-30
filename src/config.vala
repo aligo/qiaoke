@@ -23,6 +23,8 @@ public class Qiaoke.Config : GLib.Object {
   private const string FIND             = "find";
   private const string FIND_NEXT        = "find_next";
   private const string FIND_PREVIOUS    = "find_previous";
+  private const string PREV_TAB         = "prev_tab";
+  private const string NEXT_TAB         = "next_tab";
 
 
   private static ConfigFile   file;
@@ -209,6 +211,24 @@ public class Qiaoke.Config : GLib.Object {
     }
     set {
       file.set_string(HOTKEY, FIND_PREVIOUS, value);
+    }
+  }
+
+  public static string prev_tab {
+    owned get {
+      return file.get_string_key(HOTKEY, PREV_TAB, "<Control><Shift>Left");
+    }
+    set {
+      file.set_string(HOTKEY, PREV_TAB, value);
+    }
+  }
+
+  public static string next_tab {
+    owned get {
+      return file.get_string_key(HOTKEY, NEXT_TAB, "<Control><Shift>Right");
+    }
+    set {
+      file.set_string(HOTKEY, NEXT_TAB, value);
     }
   }
 }

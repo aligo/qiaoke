@@ -53,6 +53,8 @@ public class Qiaoke.TerminalMenu : Gtk.Menu {
     Hotkey.bind(Config.toggle_lock,     accel_toggle_lock_cb);
     Hotkey.bind(Config.rename_tab,      accel_rename_tab_cb);
     Hotkey.bind(Config.quit,            accel_quit_cb);
+    Hotkey.bind(Config.prev_tab,        accel_prev_tab_cb);
+    Hotkey.bind(Config.next_tab,        accel_next_tab_cb);
   }
 
   public void label_toggle_lock() {
@@ -164,6 +166,16 @@ public class Qiaoke.TerminalMenu : Gtk.Menu {
 
   private bool accel_quit_cb(Gtk.AccelGroup accel_group, GLib.Object acceleratable, uint keyval, Gdk.ModifierType modifier) {
     this.quit_cb();
+    return true;
+  }
+  
+  private bool accel_prev_tab_cb(Gtk.AccelGroup accel_group, GLib.Object acceleratable, uint keyval, Gdk.ModifierType modifier) {
+    this.manager.jump_tab(-1);
+    return true;
+  }
+
+  private bool accel_next_tab_cb(Gtk.AccelGroup accel_group, GLib.Object acceleratable, uint keyval, Gdk.ModifierType modifier) {
+    this.manager.jump_tab(1);
     return true;
   }
 
