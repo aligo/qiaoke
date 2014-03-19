@@ -8,7 +8,7 @@ Qiaoke is a slide-down Terminal Emulator for GTK Environment.
 
 Version
 -
-0.0.6
+0.0.7
 
 Build Requirements
 -

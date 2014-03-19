@@ -3,7 +3,7 @@
 # Copyright © 2012-2014 aligo Kang
 
 APPNAME = 'qiaoke'
-VERSION = '0.0.6'
+VERSION = '0.0.7'
 
 top = '.'
 out = 'build'

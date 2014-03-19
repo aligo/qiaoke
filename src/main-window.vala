@@ -8,7 +8,7 @@ public class Qiaoke.MainWindow : Gtk.Window {
 
   private bool              is_fullscreen   = false;
 
-  public  static Gtk.Window        instance;
+  public  static Qiaoke.MainWindow       instance;
 
   public MainWindow() {
     this.title = "Qiaoke!";
@@ -50,6 +50,16 @@ public class Qiaoke.MainWindow : Gtk.Window {
     } else {
       this.show();
     }
+  }
+
+  public void circle_monitor() {
+    var screen  = this.get_screen();
+    int n_monitors =  screen.get_n_monitors();
+    Config.monitor += 1;
+    if ( Config.monitor >= screen.get_n_monitors()) {
+      Config.monitor = 0;
+    }
+    this.set_position_size();
   }
 
   private bool accel_fullscreen_cb(Gtk.AccelGroup accel_group, GLib.Object acceleratable, uint keyval, Gdk.ModifierType modifier) {
@@ -109,7 +119,7 @@ public class Qiaoke.MainWindow : Gtk.Window {
     this.resize(rect.width, rect.height);
   }
 
-  public static Gtk.Window get_instance() {
+  public static Qiaoke.MainWindow get_instance() {
     return instance;
   }
 

@@ -25,6 +25,7 @@ public class Qiaoke.Config : GLib.Object {
   private const string FIND_PREVIOUS    = "find_previous";
   private const string PREV_TAB         = "prev_tab";
   private const string NEXT_TAB         = "next_tab";
+  private const string CIRCLE_MONITOR   = "circle_monitor";
 
 
   private static ConfigFile   file;
@@ -229,6 +230,15 @@ public class Qiaoke.Config : GLib.Object {
     }
     set {
       file.set_string(HOTKEY, NEXT_TAB, value);
+    }
+  }
+
+  public static string circle_monitor {
+    owned get {
+      return file.get_string_key(HOTKEY, CIRCLE_MONITOR, "<Control><Shift>m");
+    }
+    set {
+      file.set_string(HOTKEY, CIRCLE_MONITOR, value);
     }
   }
 }
