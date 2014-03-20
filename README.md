@@ -47,6 +47,7 @@ Default shortcuts
  * `Ctrl+Shift+l` - Toggle Lock Tab (Hide close button)
  * `Ctrl+Shift+Left`  - Prev Tab
  * `Ctrl+Shift+Right` - Next Tab
+ * `Ctrl+Shift+m` - Circle Around Monitors
 
 Configure
 -
